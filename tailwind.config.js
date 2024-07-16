@@ -8,7 +8,6 @@ export default {
     extend: {
       colors: {
         'custom-bg': 'rgba(8, 15, 40, .5)',
-        'text-shadow': '0 0 10px',
       },
     },
   },

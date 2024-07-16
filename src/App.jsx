@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 import Tenor from './components/Tenor/Tenor';
-import './index.css'
+import './index.css';
+
 const App = () => {
   const [gifs, setGifs] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -23,6 +24,15 @@ const App = () => {
     fetchGifs(TRENDING_URL);
   }, []);
 
+  useEffect(() => {
+    if (searchTerm.trim()) {
+      const SEARCH_URL = `https://tenor.googleapis.com/v2/search?q=${searchTerm}&key=${API_KEY}&limit=20`;
+      fetchGifs(SEARCH_URL);
+    } else {
+      fetchGifs(TRENDING_URL);
+    }
+  }, [searchTerm]);
+
   const handleSearch = () => {
     if (searchTerm.trim()) {
       const SEARCH_URL = `https://tenor.googleapis.com/v2/search?q=${searchTerm}&key=${API_KEY}&limit=20`;
@@ -31,27 +41,27 @@ const App = () => {
   };
 
   return (
-    <div className="container mx-auto bg-slate-950">
-      <div className="flex flex-col items-center my-4">
-        <h1 className="text-3xl font-bold mb-4 text-white text-shadow">Buscar GIFs en Tenor</h1>
-        <div className="flex mb-4 w-full justify-center">
+    <div className=" bg-slate-950">
+      <div className="flex flex-col items-center ">
+        <h1 className="text-3xl font-bold m-4 mb-4 text-white text-shadow">Buscar GIFs en Tenor</h1>
+        <div className="flex mb-10 w-full justify-center">
           <input
             type="text"
-            className="border p-2 rounded w-1/2 mr-2"
+            className=" p-2 w-64 mr-2 border-2 border-blue-900 rounded-lg"
             placeholder="Ingresa un término de búsqueda"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
           />
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4  border-2 border-blue-900 rounded-lg"
             onClick={handleSearch}
           >
             Buscar
           </button>
         </div>
       </div>
-      <div className="flex flex-wrap justify-center">
+      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 p-4">
         {gifs.map((gif) => (
           <Tenor
             key={gif.id}
@@ -65,5 +75,8 @@ const App = () => {
 }
 
 export default App;
+
+
+
 
 
