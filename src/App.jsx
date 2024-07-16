@@ -43,7 +43,7 @@ const App = () => {
   return (
     <div className=" bg-slate-950">
       <div className="flex flex-col items-center ">
-        <h1 className="text-3xl font-bold m-4 mb-4 text-white text-shadow">Buscar GIFs en Tenor</h1>
+        <h1 className="text-3xl font-bold m-4 mb-4 text-white text-shadow">Explora GIFs en Tenor</h1>
         <div className="flex mb-10 w-full justify-center">
           <input
             type="text"
@@ -60,7 +60,10 @@ const App = () => {
             Buscar
           </button>
         </div>
-      </div>
+      </div>´
+      {!searchTerm && (
+        <h2 className="tendencia text-2xl text-white text-center mb-4">Tendencia</h2>
+      )}
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 p-4">
         {gifs.map((gif) => (
           <Tenor
